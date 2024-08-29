@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 i# Simple Shell - README
 
 ## Overview
@@ -73,3 +74,8 @@ i# Simple Shell - README
 
 ```bash
 ./simple_shell
+=======
+The Alx shell project.
+
+A program that imitates the linux shell 
+>>>>>>> ce3e7f1fdad37ea723ae0329b63272de77ccc456
