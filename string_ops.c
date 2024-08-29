@@ -44,7 +44,7 @@ char *duplicate_string(const char *str)
 		copy[length] = *--str;
 	return (copy);
 }
-
+int output_char(char c);
 /**
  * print_string - Outputs a string to the standard output.
  * @str: The string to be printed.

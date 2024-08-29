@@ -93,6 +93,12 @@ int find_builtin(info_t *);
 void find_cmd(info_t *);
 void fork_cmd(info_t *);
 
+/* simple_loop.c */
+void run_command(info_t *info);
+void execute_command(info_t *info);
+int execute_builtin(info_t *info);
+int shell_loop(info_t *info, char **av);
+
 /* path_utils.c */
 int is_cmd(info_t *, char *);
 char *dup_chars(char *, int, int);
@@ -112,6 +118,7 @@ int _strlen(char *);
 int _strcmp(char *, char *);
 char *starts_with(const char *, const char *);
 char *_strcat(char *, char *);
+int output_char(char c);
 
 /* string_helper.c */
 char *_strcpy(char *, char *);
@@ -157,11 +164,17 @@ int _myhelp(info_t *);
 /* shell_alias.c */
 int _myhistory(info_t *);
 int _myalias(info_t *);
+int display_alias(list_t *node)
+int add_alias(info_t *info, char *str)
+int remove_alias(info_t *info, char *str)
+int display_history(info_t *info)
 
-/* getline.c */
+/* input_handler.c */
 ssize_t get_input(info_t *);
 int _getline(info_t *, char **, size_t *);
 void sigintHandler(int);
+ssize_t read_buf(info_t *info, char *buf, size_t *i);
+ssize_t input_buf(info_t *info, char **buf, size_t *len)
 
 /* info_management.c */
 void clear_info(info_t *);
@@ -174,6 +187,11 @@ int _myenv(info_t *);
 int _mysetenv(info_t *);
 int _myunsetenv(info_t *);
 int populate_env_list(info_t *);
+int initialize_env_list(info_t *info);
+int unset_env_var(info_t *info);
+int set_env_var(info_t *info);
+char *fetch_env_value(info_t *info, const char *name);
+int display_env(info_t *info);
 
 /* get_environ.c */
 char **get_environ(info_t *);

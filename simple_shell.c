@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+#include "shell.h"
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -36,7 +36,7 @@ int main(void)
 		}
 
 		buffer[strcspn(buffer, "\n")] = 0;
-		
+
 		if (strcmp(buffer, "exit") == 0)
 		{
 			free(buffer);
@@ -45,7 +45,7 @@ int main(void)
 
 		args[0] = buffer;
 		args[1] = NULL;
-		
+
 		if (fork() == 0)
 		{
 			if (execve(buffer, args, NULL) == -1)
@@ -61,50 +61,4 @@ int main(void)
 	}
 
 	free(buffer);
-=======
-#include<stdio.h>
-#include<unistd.h>
-#include<sys/types.h>
-#include<sys/wait.h>
-#include<stdlib.h>
-#include"main.h"
-
-
-/**
- * main- function that prints to the shell
- *
- * Return: 0 always
- */
-
-int main(void)
-{
-	char *command = NULL;
-	size_t len_command = 0;
-	int status;
-	int line;
-
-	while (1)
-	{
-		printf("$ ");
-
-		line = getline(&command, &len_command, stdin);
-
-
-		if (line == -1)
-		{
-			free(command);
-			printf("The program to read the command failed\n");
-			return (1);
-		}
-		else
-		{
-			create_process(command);
-			wait(&status);
-		}
-		free(command);
-		command = NULL;
-	}
-	free(command);
->>>>>>> ce3e7f1fdad37ea723ae0329b63272de77ccc456
-	return (0);
 }

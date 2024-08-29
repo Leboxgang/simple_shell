@@ -5,6 +5,10 @@
  * 
  * Return: Always 0
  */
+int initialize_env_list(info_t *info)
+int unset_env_var(info_t *info)
+int set_env_var(info_t *info)
+char *fetch_env_value(info_t *info, const char *name)
 int display_env(info_t *info)
 {
 	print_list_str(info->env);

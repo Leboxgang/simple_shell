@@ -1,4 +1,4 @@
-#include "simple_shell.c"
+#include"shell.h"
 
 /**
  * shell_loop - primary loop for the shell's execution
@@ -14,11 +14,11 @@ int shell_loop(info_t *info, char **av)
 
 	while (input_status != -1 && builtin_result != -2)
 	{
-		reset_info(info);
+		clear_info(info);
 		if (is_interactive(info))
 			print_prompt("$ ");
 		flush_buffer();
-		input_status = read_input(info);
+		input_status = get_input(info);
 		if (input_status != -1)
 		{
 			populate_info(info, av);
@@ -30,7 +30,7 @@ int shell_loop(info_t *info, char **av)
 			write_char('\n');
 		release_info(info, 0);
 	}
-	save_history(info);
+	write_history(info);
 	release_info(info, 1);
 	if (!is_interactive(info) && info->status)
 		exit(info->status);
@@ -61,7 +61,7 @@ int execute_builtin(info_t *info)
 		{"help", shell_help},
 		{"history", shell_history},
 		{"setenv", shell_setenv},
-		{"unsetenv", shell_unsetenv},
+		{"unsetenv", _unsetenv},
 		{"cd", shell_cd},
 		{"alias", shell_alias},
 		{NULL, NULL}
@@ -137,7 +137,7 @@ void run_command(info_t *info)
 	}
 	if (child_pid == 0)
 	{
-		if (execute_program(info->path, info->argv, get_env(info)) == -1)
+		if (execute_program(info->path, info->argv, getenv(info)) == -1)
 		{
 			release_info(info, 1);
 			if (errno == EACCES)
